@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "chron": "^0.1.1",
+    "date-and-time": "^2.4.1",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "node-cron": "^3.0.2",
+    "sort-json-array": "^0.1.7"
+  }
+}
