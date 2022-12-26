@@ -65,7 +65,7 @@ module.exports = class RegisterRW {
         this.datasource.push(newUser);
         const rwData = JSON.stringify(this.datasource);
 
-        fileRW.writeFile('./database/db.json', rwData, 'utf8', err => {
+        fileRW.writeFile('./src/database/db.json', rwData, 'utf8', err => {
             if (err) {
                 console.log(`Error writing file: ${err}`)
             } else {
