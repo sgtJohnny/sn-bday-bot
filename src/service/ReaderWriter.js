@@ -7,7 +7,7 @@ module.exports = class RegisterRW {
         this.username = null;
         this.date = null;
         this.year = null;
-        const data = fileRW.readFileSync('./database/db.json', 'utf8');
+        const data = fileRW.readFileSync('./src/database/db.json', 'utf8');
         this.datasource = JSON.parse(data);
     }
 
