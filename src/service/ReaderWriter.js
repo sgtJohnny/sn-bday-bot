@@ -43,7 +43,7 @@ module.exports = class RegisterRW {
         const filtered =  this.datasource.filter(child=>(child.id) !== this.userid);
         const rwData = JSON.stringify(filtered);
 
-        fileRW.writeFile('./database/db.json', rwData, 'utf8', err => {
+        fileRW.writeFile('./src/database/db.json', rwData, 'utf8', err => {
             if (err) {
                 console.log(`Error writing file: ${err}`)
             } else {
