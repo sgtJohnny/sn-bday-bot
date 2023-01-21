@@ -3,11 +3,13 @@ const cron = require("node-cron");
 const operator = require('./service/BirthdayProcessor');
 require('dotenv').config(); //initialize dotenv
 
+const reactionRoleHandler = require('./service/ReactionRole');
+
 //List of possible commands
 const cmd_reg = require('./service/BirthdayCommands');
 
 //New Discord instances
-const { Client, GatewayIntentBits,Routes,REST} = require("discord.js");
+const { Client, GatewayIntentBits,Routes,REST,Partials,Events,Collection, MessageEmbed} = require("discord.js");
 
 //New REST Instance
 const rest = new REST().setToken(process.env.CLIENT_TOKEN);
@@ -20,7 +22,14 @@ const client = new Client({
         GatewayIntentBits.GuildBans,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
-    ]});
+        GatewayIntentBits.GuildMessageReactions,
+    ],
+    partials: [
+        Partials.Message,
+        Partials.Channel,
+        Partials.Reaction
+    ]
+    });
 
 //Create a new Command-Set for the Rest Service
 const commands = [
@@ -56,6 +65,16 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply({ content: ''+process.env.MSG_SYS_ERROR+'', ephemeral: true });
     }
 });
+
+client.on('messageReactionAdd', async (reaction, user) => {
+
+    reactionRoleHandler.handle(reaction,user,true);
+})
+
+client.on('messageReactionRemove', async (reaction, user) => {
+    reactionRoleHandler.handle(reaction,user,false);
+})
+
 
 // Function called on the startup of the bot, we send a message to a channel showing the reconnect, and start the scheduler for birthdays
 client.on('ready', () => {
