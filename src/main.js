@@ -68,11 +68,11 @@ client.on('interactionCreate', async interaction => {
 
 client.on('messageReactionAdd', async (reaction, user) => {
 
-    reactionRoleHandler.handle(reaction,user,true);
+    await reactionRoleHandler.handle(reaction,user,true);
 })
 
 client.on('messageReactionRemove', async (reaction, user) => {
-    reactionRoleHandler.handle(reaction,user,false);
+    await reactionRoleHandler.handle(reaction,user,false);
 })
 
 
